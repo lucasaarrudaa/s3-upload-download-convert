@@ -1,4 +1,3 @@
-""" upload one directory from the current working directory to aws """
 from pathlib import Path
 import os
 import glob

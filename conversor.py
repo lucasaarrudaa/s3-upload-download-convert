@@ -26,3 +26,4 @@ class Convert:
         '''
         parquet = self.df.write.parquet(f"{path}")
         return parquet
+    

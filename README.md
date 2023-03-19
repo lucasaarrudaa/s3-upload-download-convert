@@ -1,2 +1,1 @@
-# s3-upload-download-convert
- 
+1st Start with your credentials in AWS CLI. 

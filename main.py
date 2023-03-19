@@ -1,9 +1,5 @@
-import pyspark
 from conversor import Convert
 from interact_s3 import BucketS3
-# from pyspark.sql import *
-# import pyspark.pandas as ps
-# import pandas as pd
 
 # Download from bucket to local
 b1 = BucketS3('datalake-my-lucas-bucket')

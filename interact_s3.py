@@ -1,6 +1,5 @@
 import boto3
 import pandas as pd
-from pathlib import Path
 
 class BucketS3:
 

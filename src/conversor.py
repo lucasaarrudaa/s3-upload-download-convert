@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 from src.interact_s3 import BucketS3
 
 
-class Convert():
+class Convert:
     '''
     Converts CSV to Parquet.
     '''

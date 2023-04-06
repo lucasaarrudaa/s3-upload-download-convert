@@ -1,21 +1,27 @@
 from pyspark.sql import SparkSession
-from src.interact_s3 import BucketS3
+import pandas as pd
 
-
-class Convert:
+class Convert(BucketS3):
     '''
-    Converts CSV to Parquet.
+    Converts CSV files to Parquet using Spark.
     '''
 
-    def __init__(self):
+    def __init__(self, bucket_name):
         '''
-        Connect to spark.
+        Connects to Spark and S3 bucket.
+            Parameters: 
+                bucket_name (string): The name of the S3 bucket
         '''
+        super().__init__(bucket_name)
         self.spark = SparkSession.builder.appName('spark').getOrCreate()
 
     def spark_read_csv(self, path_to_file_csv, sep=';'):
         '''
-        Read csv file and attribute
+        Reads the CSV file and assigns it to the Spark dataframe.
+            Parameters:
+                path_to_file_csv (string): The full path of the CSV file
+                sep (string): The delimiter used in the CSV file (default is ';')
+            Returns: The Spark dataframe with the read CSV file
         '''
         self.enem = (
             self.spark
@@ -30,17 +36,15 @@ class Convert:
 
     def spark_csv_to_parquet(self, path):
         '''
-        converting...
-        bucket-name: name of s3 bucket
-        Parameters: path (string) path of your converted archive
-        Returns: new parquet archive
+        Converts the Spark dataframe to Parquet format and saves it to the specified path.
+            Parameters:
+                path (string): The destination path for the Parquet file
         '''
-        self.parquet = (
-            self.enem
-            .write
-            .mode("overwrite")
+        self.enem_parquet = (
+            self.enem.
+            write.mode("overwrite")
             .format("parquet")
             .partitionBy("year")
-            .save(f"{path}.csv")
+            .save(f"{path}.parquet")
         )
-        return self.parquet
+        return self.enem_parquet

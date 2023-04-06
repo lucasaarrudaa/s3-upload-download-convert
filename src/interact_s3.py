@@ -20,11 +20,12 @@ class BucketS3:
             Returns: The file from S3 to the local destination folder.
         '''
         try:
-            self.s3_client.download_file(
+            self.downloaded = self.s3_client.download_file(
                 self.bucket_name, s3_path, local_path)
         except Exception as e:
-            print(f"Failed to download file from the bucket: {e}")
-
+            print(f"Failed to download file from the bucket: {e}"
+        return self.downloaded
+                  
     def upload(self, local_file_path, bucket_path):
         '''
         Uploads a file from a local path to the S3 bucket.
@@ -33,6 +34,7 @@ class BucketS3:
                 bucket_path (string): The destination path in the S3 bucket
         '''
         try:
-            self.s3_client.upload_file(local_file_path, self.bucket_name, bucket_path)
+            self.uploaded = self.s3_client.upload_file(local_file_path, self.bucket_name, bucket_path)
         except Exception as e:
             print(f"Failed to upload file to the bucket: {e}")
+        return self.uploaded
